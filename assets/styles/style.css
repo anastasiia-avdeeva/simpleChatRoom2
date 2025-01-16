@@ -18,15 +18,14 @@ body {
   display: flex;
   gap: 20px;
   flex-wrap: wrap-reverse;
-  align-items: flex-end;
 }
 
 .input-comment {
   border: dotted 1px black;
-  margin: 0 auto;
   padding: 15px 5px;
-  flex-basis: 30%;
+  flex-basis: 500px;
   flex-grow: 1;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -37,19 +36,28 @@ body {
 .input-comment__input-group, .input-comment__radio-group {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   gap: 10px;
 }
 .input-comment__input-lbl, .input-comment__radio-group {
   font-size: 32px;
 }
+.input-comment__radio-lbl {
+  padding: 10px;
+}
+.input-comment__radio-btn {
+  width: 20px;
+  height: 20px;
+  transform: scale(1.5);
+  margin-right: 10px;
+  accent-color: black;
+}
 .input-comment__input-field {
-  width: 400px;
+  width: 95%;
   height: 50px;
   font-size: 24px;
 }
 .input-comment__input-field--tall {
-  width: 400px;
+  width: 95%;
   height: 150px;
 }
 .input-comment__btn {
@@ -63,8 +71,9 @@ body {
 }
 
 .comments {
-  flex-basis: 68%;
+  flex-basis: 800px;
   flex-grow: 1;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
