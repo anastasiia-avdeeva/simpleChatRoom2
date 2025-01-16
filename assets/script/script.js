@@ -3,6 +3,7 @@ const hideNameBtn = document.getElementById("radio-no");
 const userNameInputGroup = document.getElementById("userName-inputGroup");
 const userNameInput = document.getElementById("name-input");
 const picLinkInput = document.getElementById("pic-input");
+const picNames = ["fox", "gira", "hippo", "rino", "whale"];
 const msgInput = document.getElementById("msg-input");
 const addBtn = document.getElementById("add-btn");
 const toReplace = "***";
@@ -35,31 +36,25 @@ function checkAndPost(evt) {
 }
 
 function areFieldsEmpty() {
-  return (
-    !userNameInput.value.trim() ||
-    !picLinkInput.value.trim() ||
-    !msgInput.value.trim()
-  );
+  if (showNameBtn.checked) {
+    return !userNameInput.value.trim() || !msgInput.value.trim();
+  }
+  return !msgInput.value.trim();
 }
 
 function postComment() {
+  const userName = showNameBtn.checked ? userNameInput.value : "Username";
+  const picSrc = picLinkInput.value ? picLinkInput.value : makeRandomPicPath();
+
   const mainContainer = createElemAddClass("div", "comment");
 
   const imgContainer = createElemAddClass("div", "comment__user-pic-container");
 
   const img = createElemAddClass("img", "comment__user-pic");
-  addSrcAltToImg(
-    img,
-    picLinkInput.value,
-    `Аватарка юзера ${userNameInput.value}`
-  );
+  addSrcAltToImg(img, picSrc, `Аватарка юзера ${userName}`);
   imgContainer.append(img);
 
-  const h3Elem = createElemAddClass(
-    "h3",
-    "comment__user-name",
-    userNameInput.value
-  );
+  const h3Elem = createElemAddClass("h3", "comment__user-name", userName);
 
   const pElem = createElemAddClass("p", "comment__user-msg", msgInput.value);
 
@@ -69,6 +64,13 @@ function postComment() {
 
   comments.append(mainContainer);
   clearInput();
+}
+
+function makeRandomPicPath() {
+  const number = Math.floor(Math.random() * 5);
+  const picName = picNames[number];
+  const pathToPic = "assets/img/" + picName + ".svg";
+  return pathToPic;
 }
 
 function createElemAddClass(elemName, className, textContentVal = undefined) {
