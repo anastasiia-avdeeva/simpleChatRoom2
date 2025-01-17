@@ -74,8 +74,10 @@ function addInformPlaceholder(
   inputElem,
   message = "Пожалуйста, заполните поле"
 ) {
-  inputElem.placeholder = message;
-  inputElem.classList.add("red-placeholder");
+  if (!inputElem.value.trim()) {
+    inputElem.placeholder = message;
+    inputElem.classList.add("red-placeholder");
+  }
 }
 
 function deleteInformPlaceholder(evt) {
@@ -173,6 +175,10 @@ function clearInput() {
   userNameInput.value = "";
   picLinkInput.value = "";
   msgInput.value = "";
+  userNameInput.placeholder = "";
+  userNameInput.classList.remove("red-placeholder");
+  msgInput.placeholder = "";
+  msgInput.classList.remove("red-placeholder");
 }
 
 function toggleUserNameField(show = true) {
