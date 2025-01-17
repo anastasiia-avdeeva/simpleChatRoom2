@@ -101,6 +101,7 @@ body {
   grid-area: pic;
   max-height: 100px;
   max-width: 100px;
+  background-color: rgb(243, 234, 241);
 }
 .comment__user-pic {
   width: 100%;
@@ -120,7 +121,11 @@ body {
 }
 .comment__user-msg {
   grid-area: msg;
-  padding-left: 110px;
+  padding-left: 10px;
+  align-self: center;
   font-size: 38px;
   font-weight: bold;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
