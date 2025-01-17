@@ -80,10 +80,10 @@ function addInformPlaceholder(
   }
 }
 
-function deleteInformPlaceholder(evt) {
-  if (evt.target.placeholder) {
-    evt.target.placeholder = "";
-    evt.target.classList.remove("red-placeholder");
+function deleteInformPlaceholder(inputElem) {
+  if (inputElem.placeholder) {
+    inputElem.placeholder = "";
+    inputElem.classList.remove("red-placeholder");
   }
 }
 
@@ -175,10 +175,8 @@ function clearInput() {
   userNameInput.value = "";
   picLinkInput.value = "";
   msgInput.value = "";
-  userNameInput.placeholder = "";
-  userNameInput.classList.remove("red-placeholder");
-  msgInput.placeholder = "";
-  msgInput.classList.remove("red-placeholder");
+  deleteInformPlaceholder(userNameInput);
+  deleteInformPlaceholder(msgInput);
 }
 
 function toggleUserNameField(show = true) {
@@ -197,10 +195,12 @@ userNameInput.addEventListener("input", pasteChangedName);
 
 userNameInput.addEventListener("change", pasteChangedName);
 
-userNameInput.addEventListener("focus", deleteInformPlaceholder);
+userNameInput.addEventListener("focus", () =>
+  deleteInformPlaceholder(userNameInput)
+);
 
 msgInput.addEventListener("change", pasteChangedMsg);
 
-msgInput.addEventListener("focus", deleteInformPlaceholder);
+msgInput.addEventListener("focus", () => deleteInformPlaceholder(msgInput));
 
 addBtn.addEventListener("click", checkAndPost);
