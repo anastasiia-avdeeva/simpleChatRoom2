@@ -46,10 +46,9 @@
           <input
             type="text"
             name="name"
-            id="name-input"
             class="input-comment__input-field"
+            id="name-input"
             maxlength="15"
-            required
           />
         </div>
         <div class="input-comment__input-group">
@@ -61,7 +60,6 @@
             name="avatar-link"
             id="pic-input"
             class="input-comment__input-field"
-            required
           />
         </div>
         <div class="input-comment__input-group">
@@ -72,14 +70,15 @@
             name="comment"
             id="msg-input"
             class="input-comment__input-field input-comment__input-field--tall"
-            required
           ></textarea>
         </div>
         <button id="add-btn" class="input-comment__btn">Отправить</button>
       </form>
       <div class="comments" id="comments">
         <h2 class="comments__subtitle">Чат:</h2>
-        <p class="comments__inform-paragraph">Здесь пока пусто...</p>
+        <p class="comments__inform-paragraph" id="inform-paragraph">
+          Здесь пока пусто...
+        </p>
       </div>
     </main>
 

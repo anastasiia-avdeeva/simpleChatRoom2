@@ -57,6 +57,7 @@ body {
   width: 95%;
   height: 50px;
   font-size: 24px;
+  color: black;
 }
 .input-comment__input-field--tall {
   width: 95%;
@@ -128,4 +129,12 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
+}
+
+.red-placeholder::-moz-placeholder {
+  color: red;
+}
+
+.red-placeholder::placeholder {
+  color: red;
 }

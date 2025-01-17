@@ -20,12 +20,27 @@ const addBtn = document.getElementById("add-btn");
 const toReplace = "***";
 const comments = document.getElementById("comments");
 
-function delWhiteSpaceInName(input) {
+function delWhiteSpace(input) {
   return input.trim().replace(/\s/g, "");
 }
 
-function alterName(input) {
+function alterFirstChar(input) {
   return input[0].toUpperCase() + input.slice(1).toLowerCase();
+}
+
+function pasteChangedName(evt) {
+  switch (evt.type) {
+    case "input":
+      userNameInput.value = delWhiteSpace(userNameInput.value);
+      break;
+    case "change":
+      if (userNameInput.value) {
+        userNameInput.value = alterFirstChar(userNameInput.value);
+      }
+      break;
+    default:
+      console.warn(`Событие ${evt.type} не обработано`);
+  }
 }
 
 function checkSpamAndReplace(input) {
@@ -35,15 +50,39 @@ function checkSpamAndReplace(input) {
   return msg;
 }
 
+function pasteChangedMsg() {
+  if (msgInput.value) {
+    msgInput.value = checkSpamAndReplace(msgInput.value);
+  }
+}
+
 function checkAndPost(evt) {
   evt.preventDefault();
 
   if (areFieldsEmpty()) {
-    alert("Пожалуйста, заполните все поля ввода");
+    addInformPlaceholder(msgInput);
+    if (showNameBtn.checked) {
+      addInformPlaceholder(userNameInput);
+    }
     return;
   }
 
   postComment();
+}
+
+function addInformPlaceholder(
+  inputElem,
+  message = "Пожалуйста, заполните поле"
+) {
+  inputElem.placeholder = message;
+  inputElem.classList.add("red-placeholder");
+}
+
+function deleteInformPlaceholder(evt) {
+  if (evt.target.placeholder) {
+    evt.target.placeholder = "";
+    evt.target.classList.remove("red-placeholder");
+  }
 }
 
 function areFieldsEmpty() {
@@ -76,7 +115,7 @@ function postComment() {
 
   mainContainer.append(imgContainer, usernameElem, dateElem, msgElem);
 
-  delInformParagraph();
+  deleteElement("inform-paragraph");
 
   comments.append(mainContainer);
   clearInput();
@@ -126,12 +165,8 @@ function addSrcAltToImg(imgElem, src, alt) {
   imgElem.alt = alt;
 }
 
-function delInformParagraph() {
-  const informParagraph = document.querySelector(".comments__inform-paragraph");
-
-  if (informParagraph !== null) {
-    informParagraph.remove();
-  }
+function deleteElement(id) {
+  document.getElementById(id)?.remove();
 }
 
 function clearInput() {
@@ -152,16 +187,14 @@ showNameBtn.addEventListener("click", toggleUserNameField);
 
 hideNameBtn.addEventListener("click", () => toggleUserNameField(false));
 
-userNameInput.addEventListener("input", () => {
-  userNameInput.value = delWhiteSpaceInName(userNameInput.value);
-});
+userNameInput.addEventListener("input", pasteChangedName);
 
-userNameInput.addEventListener("change", () => {
-  userNameInput.value = alterName(userNameInput.value);
-});
+userNameInput.addEventListener("change", pasteChangedName);
 
-msgInput.addEventListener("change", () => {
-  msgInput.value = checkSpamAndReplace(msgInput.value);
-});
+userNameInput.addEventListener("focus", deleteInformPlaceholder);
+
+msgInput.addEventListener("change", pasteChangedMsg);
+
+msgInput.addEventListener("focus", deleteInformPlaceholder);
 
 addBtn.addEventListener("click", checkAndPost);
