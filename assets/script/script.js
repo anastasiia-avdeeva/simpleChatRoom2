@@ -132,24 +132,17 @@ function makePathToRandomPic() {
 
 function makeDateStr() {
   const now = new Date();
-  const year = now.getFullYear();
-  const month = (now.getMonth() + 1).toString().padStart(2, "0");
-  const date = now.getDate().toString().padStart(2, "0");
-  const hour = now.getHours().toString().padStart(2, "0");
-  const min = now.getMinutes().toString().padStart(2, "0");
 
-  const daysOfWeek = [
-    "Воскресенье",
-    "Понедельник",
-    "Вторник",
-    "Среда",
-    "Четверг",
-    "Пятница",
-    "Суббота",
-  ];
-  const day = daysOfWeek[now.getDay()];
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
 
-  return `${day}, ${date}.${month}.${year} в ${hour}:${min}`;
+  return now.toLocaleString("ru-Ru", options);
 }
 
 function createElemAddClass(elemName, className, textContentVal = undefined) {
