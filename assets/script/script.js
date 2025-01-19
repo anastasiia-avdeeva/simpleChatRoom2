@@ -124,7 +124,7 @@ function postComment() {
 }
 
 function makePathToRandomPic() {
-  const number = Math.floor(Math.random() * 10);
+  const number = Math.floor(Math.random() * picNames.length);
   const picName = picNames[number];
   const pathToPic = "assets/img/" + picName + ".svg";
   return pathToPic;
